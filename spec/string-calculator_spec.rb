@@ -25,4 +25,14 @@ describe StringCalculator do
     expect(string_calculator.add("1\n2,3")).to eq(6)
   end
 
+  it "can accept delimiters of any length in the following format “//[delimiter]\n[numbers...]”" do
+    expect(string_calculator.add("//[;]\n1;2;3")).to eq(6)
+  end
+
+  it "throws an exception \"negatives numbers not allowed\" when a negative number is passed" do
+    expect{string_calculator.add("-1")}.to raise_error(RuntimeError, "Negative numbers not allowed: -1")
+    expect{string_calculator.add("-1,2")}.to raise_error(RuntimeError, "Negative numbers not allowed: -1")
+    expect{string_calculator.add("-1,3,-2")}.to raise_error(RuntimeError, "Negative numbers not allowed: -1,-2")
+  end
+
 end
