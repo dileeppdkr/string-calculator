@@ -5,4 +5,5 @@ class StringCalculator
     numbers = numbers_string.split(',').map(&:to_i)
     return numbers.reduce(:+)
   end
+  
 end
