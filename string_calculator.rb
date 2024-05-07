@@ -16,13 +16,15 @@ class StringCalculator
     if negative_numbers.any?
       raise RuntimeError, "Negative numbers not allowed: #{negative_numbers.join(',')}"
     end
-    # return sum
-   return  numbers_array.map(&:to_i).sum
+    numbers = numbers_array.map(&:to_i)
+    # ignores numbers bigger than 1000
+    numbers = ignore_numbers_above_1000 numbers
+   return  numbers.sum
   end
 
 private
 
-  def get_delimiter(numbers)
+  def get_delimiter numbers
     delimiter = /[\n,]/ # Default delimiter
     if numbers.start_with?("//")
       delimiter_match = numbers.match(/\[(.*?)\]/) #/\[([^\]]+)\]/
@@ -31,9 +33,13 @@ private
     delimiter
   end
 
-  def remove_delimiter_prefix(numbers)
+  def remove_delimiter_prefix numbers
     numbers.gsub!(/^\/\/.*?\n/, '')
     numbers
+  end
+
+  def ignore_numbers_above_1000 numbers
+    numbers.collect! { |num| num >= 1000 ? num = 0 : num = num }
   end
 
 end

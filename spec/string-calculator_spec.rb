@@ -35,4 +35,8 @@ describe StringCalculator do
     expect{string_calculator.add("-1,3,-2")}.to raise_error(RuntimeError, "Negative numbers not allowed: -1,-2")
   end
 
+  it "ignores numbers bigger than 1000 e.g. 2 + 1000 = 2" do
+    expect(string_calculator.add("1000,2")).to eq(2)
+  end
+
 end
